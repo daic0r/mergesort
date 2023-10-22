@@ -34,7 +34,16 @@ pub mod mergesort {
 
         let (slice_left, slice_right) = data[left..right].split_at_mut(mid - left);
         let merged = merge(slice_left, slice_right);
-        data[left..right].clone_from_slice(&merged);
+        
+        assert_eq!(merged.len(), data[left..right].len());
+
+        let mut dst = data[left..right].iter_mut();
+        for src in merged.into_iter() {
+            if let Some(d) = dst.next() {
+                *d = src;
+            }
+        }
+        //data[left..right].clone_from_slice(&merged);
     }
 
     pub fn sort<T: PartialOrd + Clone>(data: &mut [T]) {
