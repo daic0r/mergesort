@@ -1,7 +1,7 @@
-use rand::distributions::{Distribution, Uniform};
+
 
 pub mod mergesort {
-    use crate::mergesort;
+    
 
     fn merge<T: PartialOrd + Clone>(data: &mut [T], data2: &mut [T]) -> Vec<T> {
         let len = data.len();
