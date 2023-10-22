@@ -1,4 +1,8 @@
+use rand::distributions::{Distribution, Uniform};
+
 pub mod mergesort {
+    use crate::mergesort;
+
     fn merge<T: PartialOrd + Clone>(data: &mut [T], data2: &mut [T]) -> Vec<T> {
         let len = data.len();
         let len2 = data2.len();
@@ -93,5 +97,24 @@ mod test {
         mergesort::sort(&mut v);
 
         assert_eq!(v, vec![1, 10]);
+    }
+
+    #[test]
+    fn test_compare_std() {
+        let mut v: Vec<i32> = vec![];
+
+        let mut rng = rand::thread_rng();
+        let rand = Uniform::from(i32::MIN..i32::MAX);
+        for i in 1..4096 {
+            v.push(rand.sample(&mut rng));
+        }
+
+        let mut v2 = v.clone();
+
+        mergesort::sort(&mut v);
+
+        v2.sort();
+
+        assert_eq!(v, v2);
     }
 }
